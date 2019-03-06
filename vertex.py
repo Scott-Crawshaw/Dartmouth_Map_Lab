@@ -1,9 +1,10 @@
 # Scott Crawshaw
-# 3/2/19
+# 3/6/19
 # vertex.py
-# Lab 4 Checkpoint
+# Lab 4
 
 from cs1lib import *
+
 
 class Vertex:
     def __init__(self, name, xy, adj_list, vertex_color=(0, 0, 1), highlighted_edge_color=(1, 0, 0),
@@ -18,7 +19,7 @@ class Vertex:
 
     def __str__(self):
         string = self.name + "; Location: " + str(self.xy) + "; Adjacent vertices: "
-        string = string.replace("[", "").replace("]", "").replace("'", "").replace(",", ", ")
+        string = string.replace("[", "").replace("]", "").replace("'", "").replace(",", ", ").replace("  ", " ")
         string += self.get_adj_names()
 
         return string
@@ -55,17 +56,17 @@ class Vertex:
         enable_stroke()
         set_stroke_width(line_width)
         for vertex in self.adj_list:
-            if vertex.is_highlighted() and self.is_highlighted():
+            if vertex.is_highlighted() and self.is_highlighted():  # draw the line red if vertexes are both on path
                 set_stroke_color(self.highlighted_edge_color[0], self.highlighted_edge_color[1],
                                  self.highlighted_edge_color[2])
-            else:
+            else:  # draw the line blue if the vertexes are not both on the path
                 set_stroke_color(self.edge_color[0], self.edge_color[1], self.edge_color[2])
 
             adj_xy = vertex.get_xy()
             draw_line(self.xy[0], self.xy[1], adj_xy[0], adj_xy[1])
 
-    def is_highlighted(self):
+    def is_highlighted(self):  # is the vertex on the path
         return self.highlighted
 
-    def set_highlighted(self, highlighted):
+    def set_highlighted(self, highlighted):  # set if the vertex is on the path
         self.highlighted = highlighted

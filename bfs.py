@@ -1,3 +1,8 @@
+# Scott Crawshaw
+# 3/6/19
+# bfs.py
+# Lab 4
+
 from collections import deque
 
 
@@ -5,6 +10,7 @@ def search(start_vertex, end_vertex):
     backpointers = {start_vertex: None}
     queue = deque()
     queue.append(start_vertex)
+
     while len(queue) != 0:
         vertex = queue.popleft()
         for adj in vertex.get_adj_list():
@@ -17,7 +23,9 @@ def search(start_vertex, end_vertex):
 
 
 def get_path(vertex, backpointers, path):
+    # recursively go back through the backpointers to find the shortest path
     path.append(vertex)
     if backpointers[vertex] is None:
         return path
+
     return get_path(backpointers[vertex], backpointers, path)

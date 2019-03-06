@@ -1,7 +1,7 @@
 # Scott Crawshaw
-# 3/2/19
+# 3/6/19
 # load_graph.py
-# Lab 4 Checkpoint
+# Lab 4
 
 from vertex import Vertex
 

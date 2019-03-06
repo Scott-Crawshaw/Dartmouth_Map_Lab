@@ -1,3 +1,8 @@
+# Scott Crawshaw
+# 3/6/19
+# map_plot.py
+# Lab 4
+
 from bfs import search
 from cs1lib import *
 from load_graph import load_graph
@@ -22,14 +27,14 @@ def released(mx, my):
     clicked = False
 
 
-def reset_vertex_colors():
+def reset_vertex_colors():  # reset all of the vertexes to blue and take them off the path
     for key in vertex_dict:
         if key != start_vertex_key and key != end_vertex_key:
             vertex_dict[key].set_vertex_color(BLUE)
             vertex_dict[key].set_highlighted(False)
 
 
-def check_mouse(mx, my):
+def check_mouse(mx, my):  # get the position of the mouse and see if its on a vertex
     global end_vertex_key, start_vertex_key
     if start_vertex_key is not None or clicked:
         for key in vertex_dict:
@@ -46,17 +51,21 @@ def check_mouse(mx, my):
                 break
 
 
-def make_path():
+def make_path():  # call bfs.py to generate the shortest path
     if start_vertex_key is not None and end_vertex_key is not None and end_vertex_key is not start_vertex_key:
         path = search(vertex_dict[start_vertex_key], vertex_dict[end_vertex_key])
         for item in path:
             item.set_vertex_color(RED)
             item.set_highlighted(True)
+            print(item)
 
 
 def draw_map():
     draw_image(map_image, 0, 0)
     check_mouse(mouse_x(), mouse_y())
+
+    # I use two for loops to ensure that the vertexes all get drawn on top of the edges
+    # Important because edges are double drawn
     for key in vertex_dict:
         vertex_dict[key].draw_lines(LINE_WIDTH)
     for key in vertex_dict:
@@ -67,6 +76,6 @@ map_image = load_image(MAP_FILE_NAME)
 vertex_dict = load_graph(GRAPH_FILE_NAME)
 start_vertex_key = None
 end_vertex_key = None
-clicked = False
+clicked = False  # keeps track of whether the mouse has been pressed
 
 start_graphics(draw_map, width=WINDOW_WIDTH, height=WINDOW_HEIGHT, mouse_press=pressed, mouse_release=released)
