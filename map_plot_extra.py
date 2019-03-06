@@ -1,11 +1,11 @@
 # Scott Crawshaw
 # 3/6/19
-# map_plot.py
-# Lab 4
+# map_plot_extra.py
+# Lab 4 Extra Credit
 
-from bfs import search
 from cs1lib import *
-from load_graph import load_graph
+from dfs_extra import dfs_search
+from load_graph_extra import load_graph
 
 WINDOW_WIDTH = 1012
 WINDOW_HEIGHT = 811
@@ -32,6 +32,7 @@ def reset_vertex_colors():  # reset all of the vertexes to blue and take them of
         if key != start_vertex_key and key != end_vertex_key:
             vertex_dict[key].set_vertex_color(BLUE)
             vertex_dict[key].set_highlighted(False)
+        vertex_dict[key].set_next_vertex(None)
 
 
 def check_mouse(mx, my):  # get the position of the mouse and see if its on a vertex
@@ -53,10 +54,14 @@ def check_mouse(mx, my):  # get the position of the mouse and see if its on a ve
 
 def make_path():  # call bfs.py to generate the shortest path
     if start_vertex_key is not None and end_vertex_key is not None and end_vertex_key is not start_vertex_key:
-        path = search(vertex_dict[start_vertex_key], vertex_dict[end_vertex_key])
+        path = dfs_search(vertex_dict[start_vertex_key], vertex_dict[end_vertex_key])
+        old_item = None
         for item in path:
             item.set_vertex_color(RED)
             item.set_highlighted(True)
+            if old_item is not None:
+                old_item.set_next_vertex(item)
+            old_item = item
 
 
 def draw_map():
@@ -69,6 +74,20 @@ def draw_map():
         vertex_dict[key].draw_lines(LINE_WIDTH)
     for key in vertex_dict:
         vertex_dict[key].draw_vertex(VERTEX_RADIUS)
+
+    # draw start and end vertex names
+    set_font_size(20)
+    set_font_bold()
+    enable_stroke()
+    set_stroke_color(0, 0, 0)
+
+    if start_vertex_key is not None:
+        draw_text(vertex_dict[start_vertex_key].get_name(), vertex_dict[start_vertex_key].get_xy()[0],
+                  vertex_dict[start_vertex_key].get_xy()[1] - VERTEX_RADIUS * 2)
+
+    if end_vertex_key is not None:
+        draw_text(vertex_dict[end_vertex_key].get_name(), vertex_dict[end_vertex_key].get_xy()[0],
+                  vertex_dict[end_vertex_key].get_xy()[1] - VERTEX_RADIUS * 2)
 
 
 map_image = load_image(MAP_FILE_NAME)

@@ -1,0 +1,11 @@
+For my extra credit, I did two things:
+
+1) I drew the names of the start and end vertexes
+
+2) I implemented depth first search.
+    -Vasanta had mentioned DFS in class before, so I figured it was worth taking a look at.
+    -I found the description and psuedocode for DFS here https://en.wikipedia.org/wiki/Depth-first_search
+    -Depth first search is designed not to find the best path, but to see if any path even exists.
+    -My depth first search returns the first path it finds, regardless of its length.
+    -DFS is similar to BFS, except DFS uses a Stack instead of a Queue. This is why I made a Stack class.
+    -Run map_plot_extra.py to see the program use DFS

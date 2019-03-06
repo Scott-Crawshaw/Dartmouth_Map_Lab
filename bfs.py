@@ -2,6 +2,7 @@
 # 3/6/19
 # bfs.py
 # Lab 4
+# based on psuedocode found here http://projectpython.net/chapter18/
 
 from collections import deque
 
