@@ -1,7 +1,7 @@
 # Scott Crawshaw
 # 3/6/19
-# vertex.py
-# Lab 4
+# vertex_extra.py
+# Lab 4 Extra Credit
 
 from cs1lib import *
 
