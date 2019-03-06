@@ -25,7 +25,8 @@ def released(mx, my):
 def reset_vertex_colors():
     for key in vertex_dict:
         if key != start_vertex_key and key != end_vertex_key:
-            vertex_dict[key].vertex_color = BLUE
+            vertex_dict[key].set_vertex_color(BLUE)
+            vertex_dict[key].set_highlighted(False)
 
 
 def check_mouse(mx, my):
@@ -50,14 +51,16 @@ def make_path():
         path = search(vertex_dict[start_vertex_key], vertex_dict[end_vertex_key])
         for item in path:
             item.set_vertex_color(RED)
+            item.set_highlighted(True)
 
 
 def draw_map():
     draw_image(map_image, 0, 0)
     check_mouse(mouse_x(), mouse_y())
     for key in vertex_dict:
+        vertex_dict[key].draw_lines(LINE_WIDTH)
+    for key in vertex_dict:
         vertex_dict[key].draw_vertex(VERTEX_RADIUS)
-        vertex_dict[key].draw_lines(BLUE, LINE_WIDTH)
 
 
 map_image = load_image(MAP_FILE_NAME)
