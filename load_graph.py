@@ -16,7 +16,8 @@ def load_graph(filename):
         data = line.split(";")
         name = data[0].strip()
         adj_names = data[1].strip().replace(", ", ",").split(",")
-        xy = data[2].replace(" ", "").split()
+        xy = data[2].replace(" ", "").split(",")
+        xy = [int(xy[0]), int(xy[1])]
 
         vertex_dict[name] = Vertex(name, xy, adj_names)
 
